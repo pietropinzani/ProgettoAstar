@@ -22,6 +22,8 @@ set(SOURCES
         src/stlastar.h
         src/Map.cpp
         src/Map.h
+        src/Player.cpp
+        src/Player.h
 )
 
 # 3. Crea l'eseguibile usando il nome del Progetto

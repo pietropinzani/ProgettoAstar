@@ -1,20 +1,23 @@
 #include "Map.h"
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 
 
-Map::Map(int rows, int cols, float tileSize)
-    : m_rows(rows), m_cols(cols), m_tileSize(tileSize) {
+Map::Map(int rows, int cols, float tileSize) : m_rows(rows), m_cols(cols), m_tileSize(tileSize) {
     m_grid.resize(rows * cols, 0);
 }
 
 void Map::generateRandomWalls(int percentage) {
-    // Svuotiamo il vettore per evitare di accumulare sprite se chiamiamo la funzione più volte
     m_sprites.clear();
 
     for (int i = 0; i < m_rows * m_cols; ++i) {
-        // Determiniamo se è un muro (1) o terra (0)
         m_grid[i] = (std::rand() % 100 < percentage) ? 1 : 0;
+
+        if ((i+1)%25==0)
+            std::cout << m_grid[i]<< std::endl;
+        else
+            std::cout << m_grid[i]<< " ";
 
         int x = i % m_cols;
         int y = i / m_cols;
@@ -45,4 +48,11 @@ void Map::draw(sf::RenderWindow& window) {
     for (const auto& sprite : m_sprites) {
         window.draw(sprite);
     }
+}
+
+int Map::getTileType(int x, int y) const {
+    if (x < 0 || x >= m_cols || y < 0 || y >= m_rows) {
+        return -1; // Fuori dai limiti
+    }
+    return m_grid[y * m_cols + x];
 }

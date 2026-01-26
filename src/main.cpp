@@ -1,18 +1,33 @@
 #include <SFML/Graphics.hpp>
 #include "Map.h"
+#include "Player.h"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "A* Pathfinding - Mappa");
     window.setFramerateLimit(60);
 
-    Map gameMap(18, 25, 32.f); // Griglia 25x18 con tile da 32px
-
-    // Assicurati che i file siano in cmake-build-debug/assets/
+    Map gameMap(18, 25, 32.f);
     if (!gameMap.loadTextures("assets/ground.png", "assets/wall.png")) {
         return -1;
     }
+    gameMap.generateRandomWalls(20); // 20% di muri
 
-    gameMap.generateRandomWalls(20); // 20% di muri rossi
+    sf::Texture playerTex;
+    playerTex.loadFromFile("assets/player.png");
+    Player player(playerTex, 32.f);
+
+    int x=0, y=0;
+    while (gameMap.getTileType(x,y)==1) {
+        x++;
+        if (x>=25) {
+            x=0;
+            y++;
+        }
+    }
+
+    player.setGridPosition(x, y);
+
+
 
     while (window.isOpen()) {
         // In SFML 3, pollEvent restituisce un std::optional<sf::Event>
@@ -42,8 +57,8 @@ int main() {
 
         window.clear();
         gameMap.draw(window);
+        player.draw(window);
         window.display();
     }
-
     return 0;
 }
