@@ -14,11 +14,11 @@ public:
     int getTileType(int x, int y) const;
 
 private:
-    int m_rows, m_cols;
-    float m_tileSize;
-    sf::Texture m_groundTex, m_wallTex;
-    std::vector<int> m_grid; // 0: terra, 1: muro
-    std::vector<sf::Sprite> m_sprites;
+    int mRows, mCols;
+    float mTileSize;
+    sf::Texture mGroundTex, mWallTex;
+    std::vector<int> mGrid; // 0: terra, 1: muro
+    std::vector<sf::Sprite> mSprites;
 };
 
 #endif

@@ -1,14 +1,14 @@
 #include "Player.h"
 
 Player::Player(const sf::Texture& texture, float tileSize) 
-    : m_sprite(texture), m_tileSize(tileSize) {
+    : sprite(texture), tileSize(tileSize) {
 }
 
 void Player::setGridPosition(int x, int y) {
-    m_gridPos = {x, y};
-    m_sprite.setPosition({x * m_tileSize, y * m_tileSize});
+    gridPos = {x, y};
+    sprite.setPosition({x * tileSize, y * tileSize});
 }
 
 void Player::draw(sf::RenderWindow& window) {
-    window.draw(m_sprite);
+    window.draw(sprite);
 }
