@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "Player.h"
 
+
 int main() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "A* Pathfinding - Mappa");
     window.setFramerateLimit(60);
@@ -64,7 +65,6 @@ int main() {
                         player.setGridPosition(pos.x, pos.y + 1);
                 }
             }
-
 
 
             if (const auto* mouseClick = event->getIf<sf::Event::MouseButtonPressed>()) {
