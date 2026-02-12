@@ -24,6 +24,8 @@ set(SOURCES
         src/Map.h
         src/Player.cpp
         src/Player.h
+        src/MapSearchNode.cpp
+        src/MapSearchNode.h
 )
 
 # 3. Crea l'eseguibile usando il nome del Progetto

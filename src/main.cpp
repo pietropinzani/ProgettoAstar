@@ -19,7 +19,7 @@ int main() {
     Player player(playerTex, 32.f);
 
     int x=0, y=0;
-    while (gameMap.getTileType(x,y)==1) {
+    while (gameMap.getTileType(x,y)==99) {
         x++;
         if (x>=cols) {
             x=0;
@@ -46,22 +46,22 @@ int main() {
                 }
                 if (keyPressed->code == sf::Keyboard::Key::Left) {
                     sf::Vector2i pos = player.getGridPosition();
-                    if (gameMap.getTileType(pos.x - 1, pos.y) == 0)
+                    if (gameMap.getTileType(pos.x - 1, pos.y) == 1)
                         player.setGridPosition(pos.x - 1, pos.y);
                 }
                 if (keyPressed->code == sf::Keyboard::Key::Right) {
                     sf::Vector2i pos = player.getGridPosition();
-                    if (gameMap.getTileType(pos.x + 1, pos.y) == 0)
+                    if (gameMap.getTileType(pos.x + 1, pos.y) == 1)
                         player.setGridPosition(pos.x + 1, pos.y);
                 }
                 if (keyPressed->code == sf::Keyboard::Key::Up) {
                     sf::Vector2i pos = player.getGridPosition();
-                    if (gameMap.getTileType(pos.x, pos.y - 1) == 0)
+                    if (gameMap.getTileType(pos.x, pos.y - 1) == 1)
                         player.setGridPosition(pos.x, pos.y - 1);
                 }
                 if (keyPressed->code == sf::Keyboard::Key::Down) {
                     sf::Vector2i pos = player.getGridPosition();
-                    if (gameMap.getTileType(pos.x, pos.y + 1) == 0)
+                    if (gameMap.getTileType(pos.x, pos.y + 1) == 1)
                         player.setGridPosition(pos.x, pos.y + 1);
                 }
             }
@@ -69,11 +69,11 @@ int main() {
 
             if (const auto* mouseClick = event->getIf<sf::Event::MouseButtonPressed>()) {
                 if (mouseClick->button == sf::Mouse::Button::Left) {
-                    int gridX = static_cast<int>(mouseClick->position.x / 32);
-                    int gridY = static_cast<int>(mouseClick->position.y / 32);
+                    int gridX = mouseClick->position.x / 32;
+                    int gridY = mouseClick->position.y / 32;
 
                     if (gridX >= 0 && gridX < cols && gridY >= 0 && gridY < rows) {
-                        if (gameMap.getTileType(gridX, gridY) == 0) {
+                        if (gameMap.getTileType(gridX, gridY) == 1) {
                             targetPos = {gridX, gridY};
                             hasTarget = true;
                             std::cout << "Nuovo target impostato: " << gridX << ", " << gridY << std::endl;
