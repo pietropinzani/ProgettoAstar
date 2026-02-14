@@ -64,7 +64,7 @@ int GetMap(int x, int y) {
 }
 
 // Definitions
-
+/*
 class MapSearchNode {
    public:
     int x;  // the (x,y) positions of the node
@@ -174,8 +174,12 @@ bool MapSearchNode::GetSuccessors(
 float MapSearchNode::GetCost(MapSearchNode& successor) {
     return (float)GetMap(x, y);
 }
+*/
+
 
 // Main
+
+
 /*
 int main(int argc, char* argv[]) {
     cout << "STL A* Search implementation\n(C)2001 Justin Heyes-Jones\n";

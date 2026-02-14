@@ -1,14 +1,18 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
 #include <iostream>
 #include "Map.h"
+#include "MapSearchNode.h"
 #include "Player.h"
 
 
+
 int main() {
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "A* Pathfinding - Mappa");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "A* Pathfinding - Mappa", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     int rows=18,cols=25;
     Map gameMap(rows, cols, 32.f);
+    MapSearchNode::gameMap = &gameMap;
     if (!gameMap.loadTextures("assets/ground.png", "assets/wall.png"))
         return -1;
     gameMap.generateRandomWalls(20); // 20% di muri
@@ -32,8 +36,11 @@ int main() {
     sf::Vector2i targetPos = player.getGridPosition();
     bool hasTarget = false;
 
+    sf::Clock clock;
+
 
     while (window.isOpen()) {
+        float dt = clock.restart().asSeconds();
         while (const std::optional event = window.pollEvent()) {
 
             if (event->is<sf::Event::Closed>()) {
@@ -77,16 +84,47 @@ int main() {
                             targetPos = {gridX, gridY};
                             hasTarget = true;
                             std::cout << "Nuovo target impostato: " << gridX << ", " << gridY << std::endl;
-                        } else
+
+                            AStarSearch<MapSearchNode> astarsearch;
+                            MapSearchNode nodeStart(player.getGridPosition().x, player.getGridPosition().y);
+                            MapSearchNode nodeEnd(targetPos.x, targetPos.y);
+
+                            astarsearch.SetStartAndGoalStates(nodeStart, nodeEnd);
+                            unsigned int SearchState;
+                            do {
+                                SearchState = astarsearch.SearchStep();
+                            } while (SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_SEARCHING);
+
+                            if (SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_SUCCEEDED) {
+
+                                std::vector<sf::Vector2i> solutionPath;
+                                MapSearchNode* node = astarsearch.GetSolutionStart();
+                                solutionPath.push_back({node->x, node->y});
+
+                                // Ciclo infinito per prendere i successivi (proprio come l'esempio)
+                                for (;;) {
+                                    node = astarsearch.GetSolutionNext();
+                                    if (!node) break; // Se non ci sono più nodi, esci
+
+                                    solutionPath.push_back({node->x, node->y});
+                                }
+                                player.setPath(solutionPath);
+
+                                // Fondamentale: libera la memoria dei nodi (come nell'esempio)
+                                astarsearch.FreeSolutionNodes();
+                            } else if (SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_FAILED)
+                                std::cout << "Ricerca fallita: obiettivo non raggiungibile.\n";
+                        }else
                             std::cout << "Punto non raggiungibile (muro)!" << std::endl;
                     }
                 }
             }
-            window.clear();
-            gameMap.draw(window);
-            player.draw(window);
-            window.display();
         }
+        player.update(dt);
+        window.clear();
+        gameMap.draw(window);
+        player.draw(window);
+        window.display();
     }
     return 0;
 }

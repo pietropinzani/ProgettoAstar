@@ -46,7 +46,7 @@ bool Map::loadTextures(const std::string& groundPath, const std::string& wallPat
 }
 
 
-void Map::draw(sf::RenderWindow& window) {
+void Map::draw(sf::RenderWindow& window) const {
     for (const auto& sprite : mSprites) {
         window.draw(sprite);
     }

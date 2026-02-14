@@ -9,8 +9,9 @@ public:
     Map(int rows, int cols, float tileSize);
     bool loadTextures(const std::string& groundPath, const std::string& wallPath);
     void generateRandomWalls(int percentage);
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow& window) const;
     int getTileType(int x, int y) const;
+    std::vector<int> getGrid() const { return mGrid; }
 
 private:
     int mRows, mCols;
