@@ -36,7 +36,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_executable(run_tests tests/test_main.cpp src/Map.cpp src/Player.cpp src/Astar.cpp src/MapSearchNode.cpp)
+add_executable(run_tests tests/test_main.cpp src/Map.cpp src/Player.cpp src/MapSearchNode.cpp)
 target_link_libraries(run_tests GTest::gtest_main sfml-graphics sfml-window sfml-system)
 
 file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

@@ -25,9 +25,6 @@ Map* MapSearchNode::gameMap = nullptr;
         cout << str;
     }
 
-    // Here's the heuristic function that estimates the distance from a Node
-    // to the Goal.
-
     float MapSearchNode::GoalDistanceEstimate(MapSearchNode& nodeGoal) const {
         return abs(x - nodeGoal.x) + abs(y - nodeGoal.y);
     }
@@ -41,7 +38,7 @@ Map* MapSearchNode::gameMap = nullptr;
     }
 
 
-bool MapSearchNode::GetSuccessors(AStarSearch<MapSearchNode>* astarsearch, MapSearchNode* parent_node) const {
+    bool MapSearchNode::GetSuccessors(AStarSearch<MapSearchNode>* astarsearch, MapSearchNode* parent_node) const {
         int parent_x = -1;
         int parent_y = -1;
 
@@ -75,8 +72,8 @@ bool MapSearchNode::GetSuccessors(AStarSearch<MapSearchNode>* astarsearch, MapSe
         return true;
     }
 
-float MapSearchNode::GetCost(MapSearchNode& successor) const {
-        return (float)gameMap->getTileType(x, y);
+    float MapSearchNode::GetCost(MapSearchNode& successor) const {
+        return static_cast<float>(gameMap->getTileType(x, y));
     }
 
 

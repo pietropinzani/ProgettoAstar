@@ -20,16 +20,13 @@ void Player::update(float deltaTime) {
 
     sf::Vector2f targetPos(path[0].x * tileSize, path[0].y * tileSize);
     sf::Vector2f currentPos = sprite.getPosition();
-
-    // Calcoliamo la direzione
     sf::Vector2f direction = targetPos - currentPos;
+
     float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    if (distance < 2.0f) { // Se siamo molto vicini al centro della cella
+    if (distance < 2.0f) {
         sprite.setPosition(targetPos);
         gridPos = path[0];
-        path.erase(path.begin()); // Passiamo al prossimo punto
-    } else {
-        // Movimento fluido verso il target
+        path.erase(path.begin());
+    } else
         sprite.move((direction / distance) * moveSpeed * deltaTime);
-    }
 }

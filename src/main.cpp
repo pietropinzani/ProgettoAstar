@@ -103,7 +103,7 @@ int main() {
 
                                 for (;;) {
                                     node = astarsearch.GetSolutionNext();
-                                    if (!node) break; // Se non ci sono più nodi, esci
+                                    if (!node) break;
 
                                     solutionPath.push_back({node->x, node->y});
                                 }

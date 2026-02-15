@@ -32,7 +32,6 @@ class MapSearchNode {
     float GetCost(MapSearchNode& successor) const;
     bool IsSameState(MapSearchNode& rhs) const;
     size_t Hash() const;
-
     void PrintNodeInfo() const;
 };
 

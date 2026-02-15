@@ -130,8 +130,7 @@ bool MapSearchNode::IsGoal(MapSearchNode& nodeGoal) {
 // AddSuccessor to give the successors to the AStar class. The A* specific initialisation
 // is done for each node internally, so here you just set the state information that
 // is specific to the application
-bool MapSearchNode::GetSuccessors(
-    AStarSearch<MapSearchNode>* astarsearch, MapSearchNode* parent_node) {
+bool MapSearchNode::GetSuccessors(AStarSearch<MapSearchNode>* astarsearch, MapSearchNode* parent_node) {
     int parent_x = -1;
     int parent_y = -1;
 

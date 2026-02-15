@@ -12,7 +12,7 @@ void Map::generateRandomWalls(int percentage) {
     for (int i = 0; i < mRows * mCols; ++i) {
         mGrid[i] = (std::rand() % 100 < percentage) ? 99 : 1;
 
-        if ((i+1)%mCols==0) {
+        /*if ((i+1)%mCols==0) {
             if (mGrid[i] == 99)
                 std::cout << mGrid[i]<< std::endl;
             else
@@ -23,17 +23,14 @@ void Map::generateRandomWalls(int percentage) {
                 std::cout << mGrid[i]<< " ";
             else
                 std::cout << " " << mGrid[i]<< " ";
-        }
+        }*/
 
         int x = i % mCols;
         int y = i / mCols;
 
         const sf::Texture& texToUse = (mGrid[i] == 99) ? mWallTex : mGroundTex;
-
         sf::Sprite sprite(texToUse);
-
         sprite.setPosition({x * mTileSize, y * mTileSize});
-
         mSprites.push_back(sprite);
     }
 }
