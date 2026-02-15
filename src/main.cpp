@@ -15,7 +15,7 @@ int main() {
     MapSearchNode::gameMap = &gameMap;
     if (!gameMap.loadTextures("assets/ground.png", "assets/wall.png"))
         return -1;
-    gameMap.generateRandomWalls(20); // 20% di muri
+    gameMap.generateRandomWalls(20);
 
     sf::Texture playerTex;
     if (!playerTex.loadFromFile("assets/player.png"))
@@ -101,7 +101,6 @@ int main() {
                                 MapSearchNode* node = astarsearch.GetSolutionStart();
                                 solutionPath.push_back({node->x, node->y});
 
-                                // Ciclo infinito per prendere i successivi (proprio come l'esempio)
                                 for (;;) {
                                     node = astarsearch.GetSolutionNext();
                                     if (!node) break; // Se non ci sono più nodi, esci
@@ -110,7 +109,6 @@ int main() {
                                 }
                                 player.setPath(solutionPath);
 
-                                // Fondamentale: libera la memoria dei nodi (come nell'esempio)
                                 astarsearch.FreeSolutionNodes();
                             } else if (SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_FAILED)
                                 std::cout << "Ricerca fallita: obiettivo non raggiungibile.\n";

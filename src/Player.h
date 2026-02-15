@@ -10,7 +10,7 @@ public:
     void setGridPosition(int x, int y);
     sf::Vector2i getGridPosition() const { return gridPos; }
     void draw(sf::RenderWindow& window) const;
-    void setPath(const std::vector<sf::Vector2i>& newPath);
+    void setPath(const std::vector<sf::Vector2i>& newPath){path = newPath;}
     void update(float deltaTime);
     bool isMoving() const { return !path.empty(); }
 

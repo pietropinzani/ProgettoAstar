@@ -1,6 +1,6 @@
 #include "Player.h"
-
 #include <cmath>
+#include <iostream>
 
 Player::Player(const sf::Texture& texture, float tileSize) 
     : sprite(texture), tileSize(tileSize) {
@@ -15,14 +15,6 @@ void Player::draw(sf::RenderWindow& window) const {
     window.draw(sprite);
 }
 
-void Player::setPath(const std::vector<sf::Vector2i>& newPath) {
-    path = newPath;
-    // Rimuoviamo il primo punto perché è la posizione attuale del player
-    if (!path.empty()) {
-        path.erase(path.begin());
-    }
-}
-
 void Player::update(float deltaTime) {
     if (path.empty()) return;
 
@@ -32,7 +24,6 @@ void Player::update(float deltaTime) {
     // Calcoliamo la direzione
     sf::Vector2f direction = targetPos - currentPos;
     float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-
     if (distance < 2.0f) { // Se siamo molto vicini al centro della cella
         sprite.setPosition(targetPos);
         gridPos = path[0];
